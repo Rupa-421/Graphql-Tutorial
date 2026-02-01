@@ -1,6 +1,15 @@
 type Query{
-    users: [User]
+    users(page: Int =0 , size: Int = 10): UserPage
     user(id: ID!):User
+}
+
+type UserPage {
+    content: [User]
+    page: Int
+    size: Int
+    totalElements: Int
+    totalPages: Int
+    last: Boolean
 }
 
 type Mutation{

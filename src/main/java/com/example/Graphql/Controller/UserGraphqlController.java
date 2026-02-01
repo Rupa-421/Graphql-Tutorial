@@ -13,8 +13,14 @@ public class UserGraphqlController {
     private final UserService userService;
     
     @QueryMapping
-    public List<User> users(){
-        return userService.findAll();
+    public UserPage users(@Argument int page, @Argument int size){
+        var pageResult = userService.findUsers(page,size);
+        return new UserPage(pageResult.getContent(),
+                pageResult.getNumber(),
+                pageResult.getSize(),
+                pageResult.getTotalElements(),
+                pageResult.getTotalPages(),
+                pageResult.isLast());
     }
 
     @QueryMapping
